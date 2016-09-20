@@ -1,5 +1,5 @@
 var global = {
-    canvas : document.createElement("canvas")
+    canvas : document.createElement("canvas"),
 }
 
 function initialize(){
@@ -7,7 +7,6 @@ function initialize(){
     global.canvas.height = window.innerHeight;
     global.context = global.canvas.getContext("2d");
     document.body.insertBefore(global.canvas, document.body.childNodes[0]);
-
 }
 
 function draw(){
@@ -22,4 +21,10 @@ function resizeCanvas(e) {
     global.canvas.width = window.innerWidth;
     global.canvas.height = window.innerHeight;
     draw();
+}
+
+function mainLoop(){
+    //update();
+    draw();
+    window.setTimeout(mainLoop, 1000 / 60);
 }
