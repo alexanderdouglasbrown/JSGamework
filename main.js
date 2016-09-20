@@ -115,7 +115,7 @@ function draw() {
     context.drawImage(background,
                       0, 0,
                       background.width, background.height,
-                      0, window.innerHeight - 1024,
+                      0, window.innerHeight - background.height,
                       background.width, background.height);
     context.restore();
 
@@ -125,12 +125,12 @@ function draw() {
     context.drawImage(background2,
                       0, 0,
                       background2.width, background2.height,
-                      0, window.innerHeight - 512,
+                      0, window.innerHeight - background2.height,
                       background2.width, background2.height);
     context.drawImage(background2,
                   0, 0,
                   background2.width, background2.height,
-                  2048, window.innerHeight - 512,
+                  2048, window.innerHeight - background2.height,
                   background2.width, background2.height);
     context.restore();
 
@@ -140,12 +140,12 @@ function draw() {
     context.drawImage(background3,
                       0, 0,
                       background3.width, background3.height,
-                      0, window.innerHeight - 1024,
+                      0, window.innerHeight - background3.height,
                       background3.width, background3.height);
     context.drawImage(background3,
                   0, 0,
                   background3.width, background3.height,
-                  2048, window.innerHeight - 1024,
+                  2048, window.innerHeight - background3.height,
                   background3.width, background3.height);
     context.restore();
 
@@ -158,7 +158,7 @@ function draw() {
     context.drawImage(mainChar.sprite,
                       0, 0,
                       mainChar.sprite.width, mainChar.sprite.height,
-                      mainChar.x, window.innerHeight - 69 + mainChar.y,
+                      mainChar.x, window.innerHeight - (mainChar.sprite.height / 2) + mainChar.y,
                       mainChar.sprite.width / 2, mainChar.sprite.height / 2);
 
 
