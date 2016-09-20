@@ -30,6 +30,8 @@ function initialize() {
     canvas.height = window.innerHeight;
     context = canvas.getContext("2d");
     document.body.insertBefore(canvas, document.body.childNodes[0]);
+    context.font = "34px Arial";
+    context.fillText("Loading...", 30, 30);
 
     cameraX = 0;
     cameraY = 0;
@@ -38,18 +40,38 @@ function initialize() {
 }
 
 function load() {
+    loadArray = new Array();
     mainChar.sprite.src = "sprites/nicostand.png";
-    mainChar.y = window.innerHeight - 69 + mainChar.y;
+    loadArray.push(mainChar.sprite);
     background = new Image();
     background.src = "backgrounds/forestbackground.png";
+    loadArray.push(background);
     background2 = new Image();
     background2.src = "backgrounds/forestprebackground.png";
+    loadArray.push(background2);
     background3 = new Image();
     background3.src = "backgrounds/forestfrontbackground.png";
+    loadArray.push();
+    
+    waitOnLoading();
+}
+
+function waitOnLoading() {
+    var loaded = true;
+    for (var i = 0; i < loadArray.length; i++){
+        if (loadArray[i].complete === false) {
+            loaded = false;
+        }
+    }
+    if (loaded === false) {
+        window.setTimeout(waitOnLoading, 5);
+    } else {
+       mainLoop();
+    }
 }
 
 function update(e) {
-    console.log(keyList);
+    //console.log(keyList);
     if (keyList.includes(68)) { //D key
         mainChar.x += 5;
     }
@@ -85,7 +107,7 @@ function update(e) {
 function draw() {
     //Clear
     context.fillStyle = "lightblue";
-    context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     //Background layer 1
     context.save();
@@ -136,7 +158,7 @@ function draw() {
     context.drawImage(mainChar.sprite,
                       0, 0,
                       mainChar.sprite.width, mainChar.sprite.height,
-                      mainChar.x, mainChar.y,
+                      mainChar.x, window.innerHeight - 69 + mainChar.y,
                       mainChar.sprite.width / 2, mainChar.sprite.height / 2);
 
 
@@ -152,6 +174,7 @@ window.addEventListener("resize", resizeCanvas, false);
 function resizeCanvas(e) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    keboardBuffer = [];
     draw();
 }
 
