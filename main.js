@@ -51,7 +51,7 @@ function load() {
     loadArray.push(background2);
     background3 = new Image();
     background3.src = "backgrounds/forestfrontbackground.png";
-    loadArray.push();
+    loadArray.push(background3);
     
     waitOnLoading();
 }
