@@ -41,14 +41,14 @@ function initialize() {
         context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
     }else{
         canvas.width = window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight);
-        canvas.height = window.innerHeight; //change this one
+        canvas.height = window.innerHeight;
         context = canvas.getContext("2d");
         document.body.insertBefore(canvas, document.body.childNodes[0]);
         context.scale(window.innerHeight / globalVars.resolutionHeight, window.innerHeight / globalVars.resolutionHeight);
     }
-     context.font = "34px Arial";
-     context.fillText("Loading...", 50, 50);
-
+    context.fillStyle = "lightgray";
+    context.font = "34px Arial";
+    context.fillText("Loading...", 50, 50);
 }
 
 function load() {
@@ -179,11 +179,19 @@ function draw() {
 }
 
 //Look for resize and redraw
-//window.addEventListener("resize", resizeCanvas, false);
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("orientationchange", resizeCanvas);
 
 function resizeCanvas(e) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if ((window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight)) >= (window.innerWidth)){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerWidth * (globalVars.resolutionHeight/globalVars.resolutionWidth);
+        context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
+    }else{
+        canvas.width = window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight);
+        canvas.height = window.innerHeight;
+        context.scale(window.innerHeight / globalVars.resolutionHeight, window.innerHeight / globalVars.resolutionHeight);
+    }
     keboardBuffer = [];
     draw();
 }
