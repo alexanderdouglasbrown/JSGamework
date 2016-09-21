@@ -33,13 +33,22 @@ function keyUpEvent(e) {
 function initialize() {
     //Create canvas
     canvas = document.createElement("canvas");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerWidth * (9/16); //Needs to equal 720 on my laptop
-    context = canvas.getContext("2d");
-    document.body.insertBefore(canvas, document.body.childNodes[0]);
-    context.font = "34px Arial";
-    context.fillText("Loading...", 50, 50);
-    context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
+    if ((window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight)) >= (window.innerWidth)){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerWidth * (globalVars.resolutionHeight/globalVars.resolutionWidth);
+        context = canvas.getContext("2d");
+        document.body.insertBefore(canvas, document.body.childNodes[0]);
+        context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
+    }else{
+        canvas.width = window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight);
+        canvas.height = window.innerHeight; //change this one
+        context = canvas.getContext("2d");
+        document.body.insertBefore(canvas, document.body.childNodes[0]);
+        context.scale(window.innerHeight / globalVars.resolutionHeight, window.innerHeight / globalVars.resolutionHeight);
+    }
+     context.font = "34px Arial";
+     context.fillText("Loading...", 50, 50);
+
 }
 
 function load() {
