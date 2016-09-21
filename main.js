@@ -1,3 +1,10 @@
+var globalVars = {
+	resolutionWidth: 1920,
+	resolutionHeight: 1080,
+	cameraX: 0,
+	cameraY: 0,
+}
+
 var mainChar = {
     x: 0,
     y: 0,
@@ -27,16 +34,12 @@ function initialize() {
     //Create canvas
     canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerWidth * (9/16); //Needs to equal 720 on my laptop
     context = canvas.getContext("2d");
     document.body.insertBefore(canvas, document.body.childNodes[0]);
     context.font = "34px Arial";
-    context.fillText("Loading...", 30, 30);
-
-    cameraX = 0;
-    cameraY = 0;
-    cameraZoom = 1;
-
+    context.fillText("Loading...", 50, 50);
+    context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
 }
 
 function load() {
@@ -85,16 +88,16 @@ function update(e) {
         mainChar.y -= 5;
     }
     if (keyList.includes(39)) { //Right key
-        cameraX -= 5;
+        globalVars.cameraX -= 5;
     }
     if (keyList.includes(37)) { //Left key
-        cameraX += 5;
+        globalVars.cameraX += 5;
     }
     if (keyList.includes(40)) { //Down key
-        cameraY -= 5;
+        globalVars.cameraY -= 5;
     }
     if (keyList.includes(38)) { //Up key
-        cameraY += 5;
+        globalVars.cameraY += 5;
     }
     if (keyList.includes(219)) { //D key
         cameraZoom -= 0.01;
@@ -111,65 +114,63 @@ function draw() {
 
     //Background layer 1
     context.save();
-    context.translate(cameraX * 0.1, cameraY);
+    context.translate(globalVars.cameraX * 0.1, globalVars.cameraY);
     context.drawImage(background,
                       0, 0,
                       background.width, background.height,
-                      0, window.innerHeight - background.height,
+                      0, globalVars.resolutionHeight - background.height,
                       background.width, background.height);
     context.restore();
 
     //Background layer 2
     context.save();
-    context.translate(cameraX * 0.7, cameraY);
+    context.translate(globalVars.cameraX * 0.7, globalVars.cameraY);
     context.drawImage(background2,
                       0, 0,
                       background2.width, background2.height,
-                      0, window.innerHeight - background2.height,
+                      0, globalVars.resolutionHeight - background2.height,
                       background2.width, background2.height);
     context.drawImage(background2,
                   0, 0,
                   background2.width, background2.height,
-                  2048, window.innerHeight - background2.height,
+                  2048, globalVars.resolutionHeight - background2.height,
                   background2.width, background2.height);
     context.restore();
 
     //Background layer 3
     context.save();
-    context.translate(cameraX * 0.9, cameraY);
+    context.translate(globalVars.cameraX * 0.9, globalVars.cameraY);
     context.drawImage(background3,
                       0, 0,
                       background3.width, background3.height,
-                      0, window.innerHeight - background3.height,
+                      0, globalVars.resolutionHeight - background3.height,
                       background3.width, background3.height);
     context.drawImage(background3,
                   0, 0,
                   background3.width, background3.height,
-                  2048, window.innerHeight - background3.height,
+                  2048, globalVars.resolutionHeight - background3.height,
                   background3.width, background3.height);
     context.restore();
 
     //Moves with camera
     context.save();
-    context.translate(cameraX, cameraY); //camera
+    context.translate(globalVars.cameraX, globalVars.cameraY); //camera
 
     //Sprites
 
     context.drawImage(mainChar.sprite,
                       0, 0,
                       mainChar.sprite.width, mainChar.sprite.height,
-                      mainChar.x, window.innerHeight - (mainChar.sprite.height / 2) + mainChar.y,
+                      mainChar.x, globalVars.resolutionHeight - (mainChar.sprite.height / 2) + mainChar.y,
                       mainChar.sprite.width / 2, mainChar.sprite.height / 2);
 
 
     //Draw
     context.restore();
-    context.scale(cameraZoom, cameraZoom);
-    cameraZoom = 1;
 }
 
 //Look for resize and redraw
-window.addEventListener("resize", resizeCanvas, false);
+//window.addEventListener("resize", resizeCanvas, false);
 
 function resizeCanvas(e) {
     canvas.width = window.innerWidth;
