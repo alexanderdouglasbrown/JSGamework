@@ -1,8 +1,6 @@
 var globalVars = {
-	resolutionWidth: 1920,
-	resolutionHeight: 1080,
-	cameraX: 0,
-	cameraY: 0,
+    cameraX: 0,
+    cameraY: 0
 }
 
 var mainChar = {
@@ -11,41 +9,16 @@ var mainChar = {
     sprite: new Image()
 }
 
-//Ridiculous ugly keyboard handling because I want to simulate polling
-keyList = new Array();
-document.onkeydown = keyDownEvent;
-document.onkeyup = keyUpEvent;
-
-function keyDownEvent(e) {
-    var keyCode = (window.event) ? e.which : e.keyCode;
-    if (!keyList.includes(e.keyCode)) {
-        keyList.push(keyCode);
-    }
-}
-
-function keyUpEvent(e) {
-    var keyCode = (window.event) ? e.which : e.keyCode;
-    var index = keyList.indexOf(e.keyCode);
-    if (index != -1)
-        keyList.splice(index, 1);
+function start(){
+    initialize();
+    load();
+    waitOnLoading();
+    //mainloop is currently started by waitOnLoading()
 }
 
 function initialize() {
-    //Create canvas
-    canvas = document.createElement("canvas");
-    if ((window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight)) >= (window.innerWidth)){
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerWidth * (globalVars.resolutionHeight/globalVars.resolutionWidth);
-        context = canvas.getContext("2d");
-        document.body.insertBefore(canvas, document.body.childNodes[0]);
-        context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
-    }else{
-        canvas.width = window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight);
-        canvas.height = window.innerHeight;
-        context = canvas.getContext("2d");
-        document.body.insertBefore(canvas, document.body.childNodes[0]);
-        context.scale(window.innerHeight / globalVars.resolutionHeight, window.innerHeight / globalVars.resolutionHeight);
-    }
+    createCanvas(1920,1080);
+
     context.fillStyle = "lightgray";
     context.font = "34px Arial";
     context.fillText("Loading...", 50, 50);
@@ -64,8 +37,6 @@ function load() {
     background3 = new Image();
     background3.src = "backgrounds/forestfrontbackground.png";
     loadArray.push(background3);
-    
-    waitOnLoading();
 }
 
 function waitOnLoading() {
@@ -83,35 +54,34 @@ function waitOnLoading() {
 }
 
 function update(e) {
-    //console.log(keyList);
-    if (keyList.includes(68)) { //D key
+    if (keyboard.keyList.includes(68)) { //D key
         mainChar.x += 5;
     }
-    if (keyList.includes(65)) { //A key
+    if (keyboard.keyList.includes(65)) { //A key
         mainChar.x -= 5;
     }
-    if (keyList.includes(83)) { //S key
+    if (keyboard.keyList.includes(83)) { //S key
         mainChar.y += 5;
     }
-    if (keyList.includes(87)) { //W key
+    if (keyboard.keyList.includes(87)) { //W key
         mainChar.y -= 5;
     }
-    if (keyList.includes(39)) { //Right key
+    if (keyboard.keyList.includes(39)) { //Right key
         globalVars.cameraX -= 5;
     }
-    if (keyList.includes(37)) { //Left key
+    if (keyboard.keyList.includes(37)) { //Left key
         globalVars.cameraX += 5;
     }
-    if (keyList.includes(40)) { //Down key
+    if (keyboard.keyList.includes(40)) { //Down key
         globalVars.cameraY -= 5;
     }
-    if (keyList.includes(38)) { //Up key
+    if (keyboard.keyList.includes(38)) { //Up key
         globalVars.cameraY += 5;
     }
-    if (keyList.includes(219)) { //D key
+    if (keyboard.keyList.includes(219)) { //D key
         cameraZoom -= 0.01;
     }
-    if (keyList.includes(221)) { //D key
+    if (keyboard.keyList.includes(221)) { //D key
         cameraZoom += 0.01;
     }
 }
@@ -127,7 +97,7 @@ function draw() {
     context.drawImage(background,
                       0, 0,
                       background.width, background.height,
-                      0, globalVars.resolutionHeight - background.height,
+                      0, display.resolutionHeight - background.height,
                       background.width, background.height);
     context.restore();
 
@@ -137,12 +107,12 @@ function draw() {
     context.drawImage(background2,
                       0, 0,
                       background2.width, background2.height,
-                      0, globalVars.resolutionHeight - background2.height,
+                      0, display.resolutionHeight - background2.height,
                       background2.width, background2.height);
     context.drawImage(background2,
                   0, 0,
                   background2.width, background2.height,
-                  2048, globalVars.resolutionHeight - background2.height,
+                  2048, display.resolutionHeight - background2.height,
                   background2.width, background2.height);
     context.restore();
 
@@ -152,12 +122,12 @@ function draw() {
     context.drawImage(background3,
                       0, 0,
                       background3.width, background3.height,
-                      0, globalVars.resolutionHeight - background3.height,
+                      0, display.resolutionHeight - background3.height,
                       background3.width, background3.height);
     context.drawImage(background3,
                   0, 0,
                   background3.width, background3.height,
-                  2048, globalVars.resolutionHeight - background3.height,
+                  2048, display.resolutionHeight - background3.height,
                   background3.width, background3.height);
     context.restore();
 
@@ -170,30 +140,12 @@ function draw() {
     context.drawImage(mainChar.sprite,
                       0, 0,
                       mainChar.sprite.width, mainChar.sprite.height,
-                      mainChar.x, globalVars.resolutionHeight - (mainChar.sprite.height / 2) + mainChar.y,
+                      mainChar.x, display.resolutionHeight - (mainChar.sprite.height / 2) + mainChar.y,
                       mainChar.sprite.width / 2, mainChar.sprite.height / 2);
 
 
     //Draw
     context.restore();
-}
-
-//Look for resize and redraw
-window.addEventListener("resize", resizeCanvas);
-window.addEventListener("orientationchange", resizeCanvas);
-
-function resizeCanvas(e) {
-    if ((window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight)) >= (window.innerWidth)){
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerWidth * (globalVars.resolutionHeight/globalVars.resolutionWidth);
-        context.scale(window.innerWidth / globalVars.resolutionWidth, window.innerWidth / globalVars.resolutionWidth);
-    }else{
-        canvas.width = window.innerHeight * (globalVars.resolutionWidth/globalVars.resolutionHeight);
-        canvas.height = window.innerHeight;
-        context.scale(window.innerHeight / globalVars.resolutionHeight, window.innerHeight / globalVars.resolutionHeight);
-    }
-    keboardBuffer = [];
-    draw();
 }
 
 function mainLoop() {
