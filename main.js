@@ -19,9 +19,9 @@ function start(){
 function initialize() {
     createCanvas(1920,1080);
 
-    context.fillStyle = "lightgray";
-    context.font = "34px Arial";
-    context.fillText("Loading...", 50, 50);
+    display.context.fillStyle = "lightgray";
+    display.context.font = "34px Arial";
+    display.context.fillText("Loading...", 50, 50);
 }
 
 function load() {
@@ -88,56 +88,56 @@ function update(e) {
 
 function draw() {
     //Clear
-    context.fillStyle = "lightblue";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    display.context.fillStyle = "lightblue";
+    display.context.fillRect(0, 0, display.canvas.width, display.canvas.height);
 
     //Background layer 1
-    context.save();
-    context.translate(globalVars.cameraX * 0.1, globalVars.cameraY);
-    context.drawImage(background,
+    display.context.save();
+    display.context.translate(globalVars.cameraX * 0.1, globalVars.cameraY);
+    display.context.drawImage(background,
                       0, 0,
                       background.width, background.height,
                       0, display.resolutionHeight - background.height,
                       background.width, background.height);
-    context.restore();
+    display.context.restore();
 
     //Background layer 2
-    context.save();
-    context.translate(globalVars.cameraX * 0.7, globalVars.cameraY);
-    context.drawImage(background2,
+    display.context.save();
+    display.context.translate(globalVars.cameraX * 0.7, globalVars.cameraY);
+    display.context.drawImage(background2,
                       0, 0,
                       background2.width, background2.height,
                       0, display.resolutionHeight - background2.height,
                       background2.width, background2.height);
-    context.drawImage(background2,
+    display.context.drawImage(background2,
                   0, 0,
                   background2.width, background2.height,
                   2048, display.resolutionHeight - background2.height,
                   background2.width, background2.height);
-    context.restore();
+    display.context.restore();
 
     //Background layer 3
-    context.save();
-    context.translate(globalVars.cameraX * 0.9, globalVars.cameraY);
-    context.drawImage(background3,
+    display.context.save();
+    display.context.translate(globalVars.cameraX * 0.9, globalVars.cameraY);
+    display.context.drawImage(background3,
                       0, 0,
                       background3.width, background3.height,
                       0, display.resolutionHeight - background3.height,
                       background3.width, background3.height);
-    context.drawImage(background3,
+    display.context.drawImage(background3,
                   0, 0,
                   background3.width, background3.height,
                   2048, display.resolutionHeight - background3.height,
                   background3.width, background3.height);
-    context.restore();
+    display.context.restore();
 
     //Moves with camera
-    context.save();
-    context.translate(globalVars.cameraX, globalVars.cameraY); //camera
+    display.context.save();
+    display.context.translate(globalVars.cameraX, globalVars.cameraY); //camera
 
     //Sprites
 
-    context.drawImage(mainChar.sprite,
+    display.context.drawImage(mainChar.sprite,
                       0, 0,
                       mainChar.sprite.width, mainChar.sprite.height,
                       mainChar.x, display.resolutionHeight - (mainChar.sprite.height / 2) + mainChar.y,
@@ -145,7 +145,7 @@ function draw() {
 
 
     //Draw
-    context.restore();
+    display.context.restore();
 }
 
 function mainLoop() {
