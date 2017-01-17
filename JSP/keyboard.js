@@ -19,6 +19,4 @@ document.onkeyup = (e) => {
         JSP.keyboard.keyList.splice(index, 1)
 }
 
-window.onblur = () => {
-    JSP.keyboard.keyList = []
-}
+window.addEventListener('blur', () => { JSP.keyboard.keyList = [] })

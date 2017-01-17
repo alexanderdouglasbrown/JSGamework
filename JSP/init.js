@@ -1,6 +1,10 @@
 const JSP = {
+    canvas: null,
+    context: null,
+    resolutionWidth: null,
+    resolutionHeight: null,
     frameRate: 0,
-    lastFrameTime: 0
+    internal: { lastFrameTime: 0 }
 }
 
 function start(width, height) {
@@ -12,14 +16,20 @@ function start(width, height) {
 }
 
 function mainLoop(frameTime) {
-    dt = frameTime - JSP.lastFrameTime
-    JSP.lastFrameTime = frameTime
-    
-    JSP.frameRate = Math.floor(1000/dt)
+    dt = frameTime - JSP.internal.lastFrameTime
+    JSP.internal.lastFrameTime = frameTime
+
+    JSP.frameRate = Math.floor(1000 / dt)
 
     //Don't slow down further than 20fps (1000ms / 20fps = 50)
     if (dt > 50)
         dt = 50
+
+    //Fire mouse release for one frame only
+    if (JSP.mouse.internal.releaseFlag) {
+        JSP.mouse.internal.releaseFlag = false
+        JSP.mouse.release = true
+    }
 
     //Make dt approach 1 at 60fps.
     //60fps not required. Just makes the numbers more managable
@@ -28,5 +38,7 @@ function mainLoop(frameTime) {
     update(dt)
     draw()
 
+    JSP.mouse.release = false
+    
     requestAnimationFrame(mainLoop)
 }
