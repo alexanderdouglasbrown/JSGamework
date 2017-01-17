@@ -1,23 +1,28 @@
 <html>
-    <head>
-        <script src="engine/keyboard.js"></script>
-        <script src="engine/display.js"></script>
-        <script src="main.js"></script>
-        <style>
-            body{
-                background: black;
-                margin: 0px;
-            }
-            canvas{
-                position: absolute;
-                top: 0; bottom: 0; left: 0; right: 0;
-                margin: auto;
-            }
-        </style>
-    </head>
-    <body>
-        <script>
-            start();
-        </script>
-    </body>
+
+<head>
+    <script src="JSP/init.js"></script>
+    <script src="JSP/keyboard.js"></script>
+    <script src="JSP/display.js"></script>
+    <script src="JSP/gamepad.js"></script>
+    <script src="game.js"></script>
+    <style>
+                body {
+                    background: black;
+                    margin: 0px;
+                }
+                canvas {
+                    position: absolute;
+                    top: 0; bottom: 0; left: 0; right: 0;
+                    margin: auto;
+                }
+            </style>
+</head>
+
+<body>
+    <script>
+        start(1920, 1080, 60)
+    </script>
+</body>
+
 </html>
