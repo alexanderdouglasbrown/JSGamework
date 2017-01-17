@@ -21,3 +21,7 @@ function keyUpEvent(e) {
     if (index != -1)
         JSP.keyboard.keyList.splice(index, 1)
 }
+
+window.onblur = () => {
+   JSP.keyboard.keyList = []
+}

@@ -1,19 +1,26 @@
 const JSP = {
-    targetFrameTime: null,
     lastFrameTime: 0
 }
 
-function start(width, height, fps) {
-    JSP.targetFrameTime = 1000 / fps
+function start(width, height) {
     createCanvas(width, height)
-    
+
     initialize()
     load()
-    mainLoop()
+    requestAnimationFrame(mainLoop)
 }
 
 function mainLoop(frameTime) {
-    let dt = 1
+    dt = frameTime - JSP.lastFrameTime
+    JSP.lastFrameTime = frameTime
+
+    //Don't slow down further than 20fps (1000ms / 20fps = 50)
+    if (dt > 50)
+        dt = 50
+
+    //Make dt approach 1 at 60fps.
+    //60fps not required. Just makes the numbers more managable
+    dt /= 16.66
 
     update(dt)
     draw()
