@@ -23,9 +23,13 @@ function load() {
     background2.src = "backgrounds/forestprebackground.png"
     background3 = new Image()
     background3.src = "backgrounds/forestfrontbackground.png"
+    crosshairs = new Image()
+    crosshairs.src = "sprites/crosshairs.png"
 }
 
 function update(dt) {
+    CX = JSP.mouse.mouseX
+    CY = JSP.mouse.mouseY
     if (JSP.keyboard.keyList.includes(68)) { //D key
         mainChar.x += 5 * dt
     }
@@ -109,6 +113,7 @@ function draw() {
         mainChar.x, JSP.display.resolutionHeight - (mainChar.sprite.height / 2) + mainChar.y,
         mainChar.sprite.width / 2, mainChar.sprite.height / 2)
 
+    JSP.display.context.drawImage(crosshairs, CX, CY)
 
     //Draw
     JSP.display.context.restore()

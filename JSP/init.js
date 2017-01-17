@@ -1,18 +1,21 @@
 const JSP = {
+    frameRate: 0,
     lastFrameTime: 0
 }
 
 function start(width, height) {
-    createCanvas(width, height)
+    JSP_createCanvas(width, height)
 
     initialize()
     load()
-    requestAnimationFrame(mainLoop)
+    mainLoop(0)
 }
 
 function mainLoop(frameTime) {
     dt = frameTime - JSP.lastFrameTime
     JSP.lastFrameTime = frameTime
+    
+    JSP.frameRate = Math.floor(1000/dt)
 
     //Don't slow down further than 20fps (1000ms / 20fps = 50)
     if (dt > 50)

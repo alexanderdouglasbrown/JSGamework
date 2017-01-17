@@ -10,7 +10,7 @@ JSP.display = {
     context: null
 }
 
-function createCanvas(width, height) {
+function JSP_createCanvas(width, height) {
     JSP.display.resolutionWidth = width
     JSP.display.resolutionHeight = height
 
@@ -39,10 +39,10 @@ function createCanvas(width, height) {
 }
 
 //Look for resize and redraw
-window.addEventListener("resize", resizeCanvas)
-window.addEventListener("orientationchange", resizeCanvas)
+window.addEventListener("resize", JSP_resizeCanvas)
+window.addEventListener("orientationchange", JSP_resizeCanvas)
 
-function resizeCanvas(e) {
+function JSP_resizeCanvas(e) {
     if ((window.innerHeight * (JSP.display.resolutionWidth / JSP.display.resolutionHeight)) >= (window.innerWidth)) {
         JSP.display.canvas.width = window.innerWidth
         JSP.display.canvas.height = window.innerWidth * (JSP.display.resolutionHeight / JSP.display.resolutionWidth)

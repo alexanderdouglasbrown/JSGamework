@@ -2,20 +2,17 @@
 //  if (JSP.keyboard.keyList.includes(65)) //where 65 is the ASCII keyCode for A
 
 JSP.keyboard = {
-    keyList: new Array()
+    keyList: []
 }
 
-document.onkeydown = keyDownEvent
-document.onkeyup = keyUpEvent
-
-function keyDownEvent(e) {
+document.onkeydown = (e) => {
     const keyCode = event.which || event.keyCode
     if (!JSP.keyboard.keyList.includes(keyCode)) {
         JSP.keyboard.keyList.push(keyCode)
     }
 }
 
-function keyUpEvent(e) {
+document.onkeyup = (e) => {
     const keyCode = event.which || event.keyCode
     let index = JSP.keyboard.keyList.indexOf(keyCode)
     if (index != -1)
@@ -23,5 +20,5 @@ function keyUpEvent(e) {
 }
 
 window.onblur = () => {
-   JSP.keyboard.keyList = []
+    JSP.keyboard.keyList = []
 }
