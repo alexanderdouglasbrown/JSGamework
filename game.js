@@ -1,4 +1,4 @@
-function initialize(width, height) {
+function initialize() {
 
 }
 
