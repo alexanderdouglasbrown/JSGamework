@@ -1,4 +1,4 @@
-# JSGameWork
+# JSGamework
 
 A pre-built game loop to help start building a 2D JavaScript game.
 
