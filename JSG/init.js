@@ -4,15 +4,21 @@ const JSG = {
     resolutionWidth: null,
     resolutionHeight: null,
     frameRate: 0,
-    internal: { lastFrameTime: 0 }
+    internal: {
+        lastFrameTime: 0,
+        initialize: null,
+        load: null,
+        update: null,
+        draw: null
+    }
 }
 
 function start(width, height) {
     JSG_createCanvas(width, height)
-
-    initialize()
-    load()
-    mainLoop(0)
+    game()
+    JSG.internal.initialize()
+    JSG.internal.load()
+    mainLoop(1)
 }
 
 function mainLoop(frameTime) {
@@ -35,10 +41,10 @@ function mainLoop(frameTime) {
     //60fps not required. Just makes the numbers more managable
     dt /= 16.66
 
-    update(dt)
-    draw()
+    JSG.internal.update(dt)
+    JSG.internal.draw()
 
     JSG.mouse.release = false
-    
+
     requestAnimationFrame(mainLoop)
 }
