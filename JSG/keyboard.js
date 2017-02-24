@@ -14,7 +14,7 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('keyup', (e) => {
     const keyCode = event.which || event.keyCode
-    let index = JSG.keyboard.keyList.indexOf(keyCode)
+    const index = JSG.keyboard.keyList.indexOf(keyCode)
     if (index != -1)
         JSG.keyboard.keyList.splice(index, 1)
 })
