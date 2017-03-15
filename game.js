@@ -7,6 +7,7 @@ function game() {
     let background = new Image()
     let background2 = new Image()
     let background3 = new Image()
+
     const mainChar = {
         x: 0,
         y: 0,
@@ -26,6 +27,8 @@ function game() {
     }
 
     JSG.internal.update = function update(dt) {
+        dt /= 16.66
+
         crosshairsX = JSG.mouse.x
         crosshairsY = JSG.mouse.y
 
