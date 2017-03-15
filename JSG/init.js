@@ -3,42 +3,42 @@ const JSG = {
     context: null,
     resolutionWidth: null,
     resolutionHeight: null,
-    frameRate: 0,
+    start: function (width, height) {
+        JSG_createCanvas(width, height)
+        game.initialize()
+        game.load()
+        JSG.internal.mainLoop(0)
+    },
     internal: {
+        dt: 0,
+        frameRate: 1000 / 60,
         lastFrameTime: 0,
-        initialize: null,
-        load: null,
-        update: null,
-        draw: null
+
+        mainLoop: function (frameTime) {
+            // Thank you: http://www.isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing
+
+            JSG.internal.dt += frameTime - JSG.internal.lastFrameTime
+            JSG.internal.lastFrameTime = frameTime
+
+            while (JSG.internal.dt >= JSG.internal.frameRate) {
+                game.update(JSG.internal.frameRate)
+                JSG.internal.dt -= JSG.internal.frameRate
+            }
+
+            //Fire mouse release for one frame only
+            if (JSG.mouse.internal.releaseFlag) {
+                JSG.mouse.internal.releaseFlag = false
+                JSG.mouse.release = true
+            }
+
+            //Do the remaining dt
+            game.update(JSG.internal.dt)
+
+            game.draw()
+
+            JSG.mouse.release = false
+
+            requestAnimationFrame(JSG.internal.mainLoop)
+        }
     }
-}
-
-function start(width, height) {
-    JSG_createCanvas(width, height)
-    game()
-    JSG.internal.initialize()
-    JSG.internal.load()
-    mainLoop(0)
-}
-
-function mainLoop(frameTime) {
-    dt = frameTime - JSG.internal.lastFrameTime
-    JSG.internal.lastFrameTime = frameTime
-
-    //Don't slow down further than 20fps (1000ms / 20fps = 50)
-    if (dt > 50)
-        dt = 50
-
-    //Fire mouse release for one frame only
-    if (JSG.mouse.internal.releaseFlag) {
-        JSG.mouse.internal.releaseFlag = false
-        JSG.mouse.release = true
-    }
-
-    JSG.internal.update(dt)
-    JSG.internal.draw()
-
-    JSG.mouse.release = false
-
-    requestAnimationFrame(mainLoop)
 }
