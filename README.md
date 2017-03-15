@@ -3,7 +3,7 @@
 A pre-built game loop to help start building a 2D JavaScript game.
 
 ##### Initial Setup
-Set your desired resolution in `start(width,height)` provided in _index.html_. Then code your game in the provided functions in _game.js_.
+Set your desired resolution in `JSG.start(width,height)` provided in _index.html_. Then code your game in the provided functions in _game.js_.
 
 ##### Automatic Scaling
 Program for one resolution. JSG will automatically scale your game to fit any browser window size. Just use the provided `JSG.canvas` and `JSG.context`.
@@ -27,8 +27,4 @@ becomes
 mainCharacter.x += 2 * dt
 ```
 
-<<<<<<< HEAD
-`dt` multiplier caps at 3x (20fps). Any slower, and dt allows slowdown to occur.
-=======
 By default, JSG will target 60fps.
->>>>>>> 516e9580ede19c2b501719707177daa1dfed2cfe
