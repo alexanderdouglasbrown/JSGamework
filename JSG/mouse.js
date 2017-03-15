@@ -12,7 +12,6 @@ JSG.mouse = {
 document.addEventListener('touchmove', (e) => {
     e.preventDefault()
     JSG_getCursorPosition(e)
-    JSG.mouse.click = false
 })
 
 document.addEventListener('touchstart', (e) => {
@@ -32,10 +31,8 @@ document.addEventListener("mouseup", () => {
 
 document.addEventListener('touchend', (e) => {
     //Only trigger releaseFlag if the user didn't move when touching
-    if (JSG.mouse.click) {
         JSG.mouse.click = false
         JSG.mouse.internal.releaseFlag = true
-    }
 })
 
 document.addEventListener('touchcancel', (e) => { JSG.mouse.click = false })
@@ -45,8 +42,8 @@ window.addEventListener('blur', () => { JSG.mouse.click = false })
 function JSG_getCursorPosition(e) {
     e = e || window.event
 
-    JSG.mouse.x = event.pageX - JSG.canvas.offsetLeft
-    JSG.mouse.y = event.pageY - JSG.canvas.offsetTop
+    JSG.mouse.x = e.pageX - JSG.canvas.offsetLeft
+    JSG.mouse.y = e.pageY - JSG.canvas.offsetTop
 
     if (JSG.mouse.x < 0)
         JSG.mouse.x = 0
