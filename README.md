@@ -17,8 +17,8 @@ Use the provided `JSG.mouse.x` and `JSG.mouse.y` so that the mouse cursor plays 
         if (JSG.keyboard.keyList.includes(65))
 ```
 
-##### Delta Time
-Multiply any increments to your game objects in the `update()` function by `dt` to help adjust to any framerate. Example:
+##### Capped Delta Time
+Multiply any increments to your game objects in the `update()` function by `dt` to help adjust to any framerate dips. Example:
 ```javascript
 mainCharacter.x += 2
 ```
@@ -27,4 +27,8 @@ becomes
 mainCharacter.x += 2 * dt
 ```
 
+<<<<<<< HEAD
 `dt` multiplier caps at 3x (20fps). Any slower, and dt allows slowdown to occur.
+=======
+By default, JSG will target 60fps.
+>>>>>>> 516e9580ede19c2b501719707177daa1dfed2cfe
