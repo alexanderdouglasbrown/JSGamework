@@ -18,7 +18,7 @@ Use the provided `JSG.mouse.x` and `JSG.mouse.y` so that the mouse cursor plays 
 ```
 
 ##### Capped Delta Time
-Multiply any increments to your game objects in the `update()` function by `dt` to help adjust to any framerate dips. Example:
+Multiply any increments to your game objects in the `update()` function by `dt` to help adjust to any framerate. Example:
 ```javascript
 mainCharacter.x += 2
 ```
@@ -27,4 +27,4 @@ becomes
 mainCharacter.x += 2 * dt
 ```
 
-By default, JSG will target 60fps.
+`dt` will allow slowdwon at 20fps (3x)
