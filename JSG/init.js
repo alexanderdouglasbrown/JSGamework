@@ -5,14 +5,17 @@ const JSG = {
     resolutionHeight: null,
     start: function (width, height) {
         JSG_createCanvas(width, height)
-        game.initialize()
-        game.load()
+        game()
+        JSG.internal.initialize()
         JSG.internal.mainLoop(0)
     },
     internal: {
         dt: 0,
         frameRate: 1000 / 60,
         lastFrameTime: 0,
+        initialize: null,
+        update: null,
+        draw: null,
 
         mainLoop: function (frameTime) {
             // Thank you: http://www.isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing
@@ -21,7 +24,7 @@ const JSG = {
             JSG.internal.lastFrameTime = frameTime
 
             while (JSG.internal.dt >= JSG.internal.frameRate) {
-                game.update(JSG.internal.frameRate)
+                JSG.internal.update(JSG.internal.frameRate)
                 JSG.internal.dt -= JSG.internal.frameRate
             }
 
@@ -32,9 +35,9 @@ const JSG = {
             }
 
             //Do the remaining dt
-            game.update(JSG.internal.dt)
+            JSG.internal.update(JSG.internal.dt)
 
-            game.draw()
+            JSG.internal.draw()
 
             JSG.mouse.release = false
 
