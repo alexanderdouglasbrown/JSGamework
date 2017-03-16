@@ -1,17 +1,14 @@
-const game = {
-    initialize: function () {
-        
-    },
+function game() {
 
-    load: function () {
+    JSG.internal.initialize = function () {
 
-    },
+    }
 
-    update: function (dt) {
+    JSG.internal.update = function (dt) {
 
-    },
+    }
 
-    draw: function () {
+    JSG.internal.draw = function () {
         //Clear
         JSG.context.fillStyle = "white"
         JSG.context.fillRect(0, 0, JSG.resolutionWidth, JSG.resolutionHeight)
