@@ -76,7 +76,6 @@ const JSG = {
                 JSG.mouse.release = true
             }
 
-            //Call update at a consistent rate
             update(JSG.internal.dt)
 
             JSG.mouse.release = false
