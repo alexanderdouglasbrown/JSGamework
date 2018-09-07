@@ -57,7 +57,7 @@ const JSG = {
 
                 //Call update at a consistent rate
                 update(JSG.internal.targetFrameTime)
-                
+
                 JSG.internal.dt -= JSG.internal.targetFrameTime
                 JSG.mouse.release = false
             }
@@ -157,13 +157,13 @@ window.addEventListener('blur', () => { JSG.keyboard.keyList = [] })
 window.addEventListener('touchmove', (e) => {
     e.preventDefault()
     JSG.internal.getCursorPosition(e)
-}, {passive: false})
+}, { passive: false })
 
 window.addEventListener('touchstart', (e) => {
     e.preventDefault()
     JSG.internal.getCursorPosition(e)
     JSG.mouse.click = true
-}, {passive: false})
+}, { passive: false })
 
 window.addEventListener("mousemove", (e) => { JSG.internal.getCursorPosition(e) })
 

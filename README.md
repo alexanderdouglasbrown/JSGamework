@@ -27,6 +27,8 @@ Program for one resolution. JSG will automatically scale your game to fit any br
 ##### Mouse
 Use the provided `JSG.mouse.x` and `JSG.mouse.y` so that the mouse cursor plays nicely with the scalar.
 
+Use `JSG.mouse.click` or `JSG.mouse.release` to listen for and handle clicks.
+
 ##### Keyboard
 `JSG.keyboard.keyList` is an array of all the keys being pressed. If, for example, you want to check if 'A' is being pressed, use:
 ```javascript
